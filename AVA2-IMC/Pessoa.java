@@ -8,25 +8,23 @@ public class Pessoa {
         this.peso = peso;
         this.altura = altura;
     }
-
     public double calcularIMC() {
-        return peso / Math.pow(altura, 2);
+        return peso / (altura * altura);
     }
-
     public String classificarIMC() {
         double imc = calcularIMC();
         
-        if (imc < 18.5) return "Baixo peso - Procure um médico";
+        if (imc < 18.5) return "Baixo peso";
         if (imc < 25) return "Peso adequado";
-        if (imc < 30) return "Sobrepeso - Atenção aos riscos";
-        if (imc < 35) return "Obesidade Grau I - Busque orientação";
-        if (imc < 40) return "Obesidade Grau II - Avaliação urgente";
-        return "Obesidade Grau III - Risco elevado";
+        if (imc < 30) return "Sobrepeso";
+        if (imc < 35) return "Obesidade Grau I";
+        if (imc < 40) return "Obesidade Grau II";
+        return "Obesidade Grau III";
     }
 
     public void exibirResultado() {
         System.out.printf("""
-            \n=== RESULTADO ===
+            \n
             Nome: %s
             IMC: %.1f
             Classificação: %s
