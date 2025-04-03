@@ -1,7 +1,7 @@
 public class Pessoa {
-    private String nome;
-    private double peso;
-    private double altura;
+    private final String nome;
+    private final double peso;
+    private final double altura;
 
     public Pessoa(String nome, double peso, double altura) {
         this.nome = nome;
@@ -10,32 +10,26 @@ public class Pessoa {
     }
 
     public double calcularIMC() {
-        return peso / (altura * altura);
+        return peso / Math.pow(altura, 2);
     }
 
-    public String analisarIMC(double imc) {
-        if (imc < 18.5) {
-            return "Baixo peso. Recomendado procurar um médico para avaliação criteriosa.";
-        } else if (imc >= 18.5 && imc <= 24.9) {
-            return "Peso adequado. Avalie outros parâmetros da composição corporal.";
-        } else if (imc >= 25 && imc <= 29.9) {
-            return "Sobrepeso. Risco de doenças como diabetes e hipertensão. Consulte um médico.";
-        } else if (imc >= 30 && imc <= 34.9) {
-            return "Obesidade grau I. Busque orientação médica e nutricional.";
-        } else if (imc >= 35 && imc <= 39.9) {
-            return "Obesidade grau II. Quadro de obesidade evoluído. Busque orientação médica.";
-        } else {
-            return "Obesidade grau III. Alto risco de doenças associadas. Busque orientação médica urgente.";
-        }
-    }
-
-    public void mostrarResultado() {
+    public String classificarIMC() {
         double imc = calcularIMC();
-        String analise = analisarIMC(imc);
         
-        System.out.println("\n=== Resultado do IMC ===");
-        System.out.println("Nome: " + nome);
-        System.out.printf("IMC: %.2f kg/m²\n", imc);
-        System.out.println("Análise: " + analise);
+        if (imc < 18.5) return "Baixo peso - Procure um médico";
+        if (imc < 25) return "Peso adequado";
+        if (imc < 30) return "Sobrepeso - Atenção aos riscos";
+        if (imc < 35) return "Obesidade Grau I - Busque orientação";
+        if (imc < 40) return "Obesidade Grau II - Avaliação urgente";
+        return "Obesidade Grau III - Risco elevado";
+    }
+
+    public void exibirResultado() {
+        System.out.printf("""
+            \n=== RESULTADO ===
+            Nome: %s
+            IMC: %.1f
+            Classificação: %s
+            """, nome, calcularIMC(), classificarIMC());
     }
 }
